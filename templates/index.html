@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metronome</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Metronome</h1>
+    
+    
+    <button id="toggleBtn">Play/Stop</button>
+    <br><br>
+    <label for="bpmSlider">BPM:</label>
+    <input type="range" id="bpmSlider" min="40" max="300" value="{{ bpm }}">
+    <input type="text" id="bpmInput" value="{{ bpm }}" size="4"><br><br>
+    <textarea id="loopInput" rows="7" cols="30">bar(4,4)</textarea>
+    <br>
+    <button id="applyBtn">Apply</button>
+    <!--<button id="resetBtn">Default</button>-->
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
