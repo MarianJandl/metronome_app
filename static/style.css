@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #222;
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+button {
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #00aaff;
+    color: white;
+    cursor: pointer;
+}
+
+button:active {
+    background-color: #0088cc;
+}
+
+/* 🎨 Dark Themed Textarea */
+textarea {
+    background-color: #333;  /* Dark background */
+    color: white;  /* White text */
+    border: 1px solid #555;  /* Subtle border */
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 600px;
+}
+
+/* Highlight effect when textarea is focused */
+textarea:focus {
+    outline: none;
+    border-color: #00aaff;
+    box-shadow: 0 0 5px #00aaff;
+}
+
+#bpmInput {
+    background-color: #333;  /* Dark background */
+    color: white;  /* White text */
+    border: 1px solid #555;  /* Subtle border */
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    max-width: 26px;
+    
+}
+
+/* Highlight effect when textarea is focused */
+#bpmInput:focus {
+    outline: none;
+    border-color: #00aaff;
+    box-shadow: 0 0 5px #00aaff;
+}
