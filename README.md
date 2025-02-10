@@ -9,7 +9,7 @@ How to use this metronome app:
   - bpm slider and input box - you can change the tempo by using the slider or writing the new tempo to the input box
   - textarea - this is used to program custom track of bars with different time signitures:
       - bar() function has two parameters that define the time signiture, for example bar(4,4) means 4/4 bar
-      - after you finish programming your bar track, click the Apply button to play your bar track
+      - after you finish programming your bar track, click the Apply button to use your bar track
 
 This app is open source, so you can change for example the pitch of the sounds by editing the app.py file.
 (user interface for this and many more is still in development)
