@@ -11,14 +11,17 @@
     <h1>Metronome</h1>
     
     <p>Server Status: <span id="serverStatus">Checking...</span></p><br>
-    <button id="toggleBtn">Play/Stop</button>
+    <button id="toggleBtn">Start</button>
     <br><br>
-    <label for="bpmSlider">BPM:</label>
-    <input type="range" id="bpmSlider" min="40" max="300" value="{{ bpm }}">
-    <input type="text" id="bpmInput" value="{{ bpm }}" size="4"><br><br>
-    <textarea id="loopInput" rows="7" cols="30">bar(4,4)</textarea>
+    <button id="decreaseBpm" class="bpmBtn">- {{ bpm_step }}</button>
+<label for="bpmSlider">BPM:</label>
+<input type="range" id="bpmSlider" min="40" max="300" value="{{ bpm }}">
+<input type="text" id="bpmInput" value="{{ bpm }}" size="2">
+<button id="increaseBpm" class="bpmBtn">+ {{ bpm_step }}</button><br><br>
+    <h2>Bar track</h2>
+    <textarea id="loopInput" rows="6" cols="30">bar(4,4)</textarea>
     <br>
-    <button id="applyBtn">Apply</button>
+    <button id="applyLoopBtn" class="applyBtn">Apply</button>
     <!--<button id="resetBtn">Default</button>-->
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
