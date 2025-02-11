@@ -60,7 +60,7 @@ def bar(n1, n2):
     i = 1 / n2
     while running and i <= n1 / n2:
         play_sound(0, 550 if i == 1 / n2 else 400, 16000)
-        pygame.time.delay(int(delay / n2))
+        pygame.time.delay(int(int((60000 / bpm) * 4) / n2))
         i += 1 / n2
 
 def metronome_loop():
@@ -103,6 +103,9 @@ def update_bpm():
     except ValueError:
         return jsonify({"success": False, "error": "Invalid BPM value"})
 
+@app.route("/status")
+def server_status():
+    return jsonify({"running": running})
 #@app.route("/reset", methods=["POST"])
 #def reset_bpm():
 #    global bpm
