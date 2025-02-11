@@ -1,7 +1,7 @@
 ```
 git clone https://github.com/MarianJandl/metronome_app
 ```
-You need Python and flask, numpy, pygame, threading libraries installed to run this metronome app
+You need Python and flask, numpy, pygame libraries installed to run this metronome app
 ```
 pip install flask numpy pygame
 ```
