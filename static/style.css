@@ -12,19 +12,35 @@ h1 {
 }
 
 button {
-    font-size: 18px;
-    padding: 10px;
+    
+    
     border: none;
-    border-radius: 5px;
-    background-color: #00aaff;
-    color: white;
+    border-radius: 9px;
+    background-color: #0099ee;
+    color: #000000;
     cursor: pointer;
 }
 
+#toggleBtn{
+    width: 95px;
+    text-align: center;
+    padding: 10px;
+    font-size: 30px;
+}
+.bpmBtn{
+    height: 35px;
+    padding: 5px;
+    width: 40px;
+    margin: 5px;
+    font-size: 18px;
+}
 button:active {
     background-color: #0088cc;
 }
-
+.applyBtn{
+    padding: 10px;
+    font-size: 18px;
+}
 /* 🎨 Dark Themed Textarea */
 textarea {
     background-color: #333;  /* Dark background */
@@ -33,8 +49,8 @@ textarea {
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
-    width: 80%;
-    max-width: 600px;
+    width: 60%;
+    max-width: 400px;
 }
 
 /* Highlight effect when textarea is focused */
@@ -61,4 +77,3 @@ textarea:focus {
     border-color: #00aaff;
     box-shadow: 0 0 5px #00aaff;
 }
- 
