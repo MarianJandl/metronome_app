@@ -12,12 +12,14 @@ pygame.init()
 SAMPLE_RATE = 44100
 DURATION = 0.2
 amp = 16000
+dfbpm = 120
 bpm = 120  # Default BPM
 running = False
 metronome_thread = None
-
+dfloop = "bar(4,4)"
 loop = "bar(4,4)"
-
+dfbpm_step = 4
+bpm_step = 4
 def parse_set(set):
     pass
 
@@ -71,7 +73,8 @@ def metronome_loop():
 
 @app.route("/")
 def index():
-    return render_template("index.html", bpm=bpm)
+    return render_template("index.html", bpm=bpm, bpm_step=bpm_step)  # Pass bpm_step to template
+
 
 @app.route("/toggle", methods=["POST"])
 def toggle_metronome():
@@ -106,6 +109,48 @@ def update_bpm():
 @app.route("/status")
 def server_status():
     return jsonify({"running": running})
+
+@app.route("/refreshed", methods=["POST"])
+def refreshed():
+    print("Page was refreshed!")
+    global running
+    global loop
+    global bpm
+    global bpm_step
+    global dfloop
+    global dfbpm
+    global dfbpm_step
+    if running == True:
+        toggle_metronome()
+        #return jsonify({"success": True})
+    loop = dfloop
+    bpm = dfbpm
+    bpm_step = dfbpm_step
+    return "OK", 200
+
+@app.route("/increase_bpm", methods=["POST"])
+def increase_bpm():
+    global bpm, bpm_step
+    try:
+        bpm += bpm_step
+        if bpm > 600:
+            bpm -= bpm_step  # Prevent exceeding limit
+        return jsonify({"success": True, "bpm": bpm})
+    except ValueError:
+        return jsonify({"success": False, "error": "Invalid BPM value"})
+
+
+@app.route("/decrease_bpm", methods=["POST"])
+def decrease_bpm():
+    global bpm, bpm_step
+    try:
+        bpm -= bpm_step
+        if bpm < 1:
+            bpm += bpm_step  # Prevent BPM going below 1
+        return jsonify({"success": True, "bpm": bpm})
+    except ValueError:
+        return jsonify({"success": False, "error": "Invalid BPM value"})
+
 #@app.route("/reset", methods=["POST"])
 #def reset_bpm():
 #    global bpm
