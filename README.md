@@ -1,3 +1,6 @@
+```
+git clone https://github.com/MarianJandl/metronome_app
+```
 You need flask, numpy, pygame and threading libraries installed to run this metronome app
 
 To start the app simply run the app.py file and then put the server address into your browser (usually http://127.0.0.1:5000)
