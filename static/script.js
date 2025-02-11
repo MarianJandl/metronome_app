@@ -3,7 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const bpmInput = document.getElementById("bpmInput");
     
     document.getElementById("toggleBtn").addEventListener("click", toggleMetronome);
-    document.getElementById("applyBtn").addEventListener("click", applySettings);
+    document.getElementById("applyLoopBtn").addEventListener("click", applySettings);
+    document.getElementById("increaseBpm").addEventListener("click", increase_bpm);
+    document.getElementById("decreaseBpm").addEventListener("click", decrease_bpm);
     //document.getElementById("resetBtn").addEventListener("click", resetToDefault);
 
     bpmSlider.addEventListener("input", function () {
@@ -29,6 +31,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     document.addEventListener("keydown", function(event) {
+        // Prevent space key from triggering the metronome when typing in input or textarea
+        if (event.code === "Space" && (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA")) {
+            return; // Do nothing if an input field or textarea is active
+        }
+    
         if (event.code === "Space") {
             event.preventDefault(); // Prevent scrolling when pressing space
             toggleMetronome();
@@ -40,10 +47,41 @@ function toggleMetronome() {
     fetch("/toggle", { method: "POST" })
         .then(response => response.json())
         .then(data => {
-            document.getElementById("status").innerText = data.status;
+            //document.getElementById("status").innerText = data.status;
+           if(data.status == "stopped"){
+            document.getElementById("toggleBtn").innerHTML = "Start";
+           }else{
+            document.getElementById("toggleBtn").innerHTML = "Stop";
+           }
         });
 }
+function increase_bpm() {
+    fetch("/increase_bpm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById("bpmInput").value = data.bpm;
+            document.getElementById("bpmSlider").value = data.bpm;
+        }
+    });
+}
 
+function decrease_bpm() {
+    fetch("/decrease_bpm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById("bpmInput").value = data.bpm;
+            document.getElementById("bpmSlider").value = data.bpm;
+        }
+    });
+}
 function updateBPM(bpmValue) {
     fetch("/update_bpm", {
         method: "POST",
@@ -67,18 +105,24 @@ function checkServerStatus() {
     $.get("/status", function(data) {
         if (data.running) {
             $("#serverStatus").text("Running").css("color", "lightgreen");
+            //document.getElementById("toggleBtn").innerHTML = "Stop";
         } else {
             $("#serverStatus").text("Running").css("color", "lightgreen");
+            //document.getElementById("toggleBtn").innerHTML = "Start";
         }
     }).fail(function() {
         $("#serverStatus").text("Disconnected").css("color", "red");
+        location.reload();
+
     });
 }
 
 // Check server status every 1 second
 setInterval(checkServerStatus, 1000);
 checkServerStatus();
-
+if (performance.getEntriesByType("navigation")[0].type === "reload") {
+    fetch("/refreshed", { method: "POST" }); 
+}
 /*function resetToDefault() {
     fetch("/reset", { method: "POST" })
         .then(response => response.json())
