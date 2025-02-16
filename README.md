@@ -11,6 +11,7 @@ App is still in development that's why the Flask uses development server
 
 How to use this metronome app:
   - Play/Stop button - plays or stops the metronome
+  - volume slider - you can adjust volume by using the slider
   - bpm slider and input box - you can change the tempo by using the slider or writing the new tempo to the input box
   - textarea - this is used to program custom track of bars with different time signitures:
       - bar() function has two parameters that define the time signiture, for example bar(4,4) means 4/4 bar
