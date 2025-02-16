@@ -41,6 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
             toggleMetronome();
         }
     });
+    document.getElementById("volume").addEventListener("input", function() {
+        fetch("/update_volume", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ volume: this.value })
+        });
+    });
 });
 
 function toggleMetronome() {
