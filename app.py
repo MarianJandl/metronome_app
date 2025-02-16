@@ -20,6 +20,7 @@ dfloop = "bar(4,4)"
 loop = "bar(4,4)"
 dfbpm_step = 4
 bpm_step = 4
+volume = 1.0
 def parse_set(set):
     pass
 
@@ -40,11 +41,18 @@ def parse_loop(loopp):
         else:
             return jsonify({"success": False, "error": "unknown loop command"})
 
-def generate_sound(type, frequency, amp, duration=DURATION, sample_rate=SAMPLE_RATE):
+def generate_sound(type, frequency, amp,vol, duration=DURATION, sample_rate=SAMPLE_RATE):
     num_samples = int(duration * sample_rate)
     t = np.linspace(0, duration, num_samples, endpoint=False)
-    samples = amp * np.sin(2 * np.pi * frequency * t) if type == 0 else amp * np.sign(np.sin(2 * np.pi * frequency * t))
-    
+    global volume
+    vol = vol * volume
+    min_dB = -40  # Silence threshold (adjust as needed)
+    log_volume = 10 ** ((vol * (0 - min_dB) + min_dB) / 20)  # C
+    scaled_amp = amp * log_volume
+    samples = (
+        scaled_amp * np.sin(2 * np.pi * frequency * t)
+        if type == 0 else scaled_amp * np.sign(np.sin(2 * np.pi * frequency * t))
+    )
     fade_out = np.linspace(1, 0, num_samples)
     samples *= fade_out
     samples = np.clip(samples, -amp, amp).astype(np.int16)
@@ -150,7 +158,16 @@ def decrease_bpm():
         return jsonify({"success": True, "bpm": bpm})
     except ValueError:
         return jsonify({"success": False, "error": "Invalid BPM value"})
-
+@app.route("/update_volume", methods=["POST"])
+def update_volume():
+    global volume
+    try:
+        volume = float(request.json.get("volume"))
+        print(volume)
+        #volume = max(0.0, min(volume, 1.0))  # Clamp between 0.0 (mute) and 1.0 (max)
+        return jsonify({"success": True, "volume": volume})
+    except ValueError:
+        return jsonify({"success": False, "error": "Invalid volume value"})
 #@app.route("/reset", methods=["POST"])
 #def reset_bpm():
 #    global bpm
