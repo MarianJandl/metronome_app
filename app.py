@@ -41,13 +41,12 @@ def parse_loop(loopp):
         else:
             return jsonify({"success": False, "error": "unknown loop command"})
 
-def generate_sound(type, frequency, amp,vol, duration=DURATION, sample_rate=SAMPLE_RATE):
+def generate_sound(type, frequency, amp, duration=DURATION, sample_rate=SAMPLE_RATE):
     num_samples = int(duration * sample_rate)
     t = np.linspace(0, duration, num_samples, endpoint=False)
-    global volume
-    vol = vol * volume
+    
     min_dB = -40  # Silence threshold (adjust as needed)
-    log_volume = 10 ** ((vol * (0 - min_dB) + min_dB) / 20)  # C
+    log_volume = 10 ** ((volume * (0 - min_dB) + min_dB) / 20)  # C
     scaled_amp = amp * log_volume
     samples = (
         scaled_amp * np.sin(2 * np.pi * frequency * t)
