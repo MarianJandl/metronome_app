@@ -13,6 +13,8 @@
     <p>Server Status: <span id="serverStatus">Checking...</span></p><br>
     <button id="toggleBtn">Start</button>
     <br><br>
+    <label for="volume">Volume:</label>
+<input type="range" id="volume" min="0" max="1" step="0.01" value="1"><br><br>
     <button id="decreaseBpm" class="bpmBtn">- {{ bpm_step }}</button>
 <label for="bpmSlider">BPM:</label>
 <input type="range" id="bpmSlider" min="40" max="300" value="{{ bpm }}">
